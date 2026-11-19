@@ -192,6 +192,7 @@ var data = []entry{
 	{"gobuild5.input", "gobuild5.golden", idempotent},
 	{"gobuild6.input", "gobuild6.golden", idempotent},
 	{"gobuild7.input", "gobuild7.golden", idempotent},
+	{"trailingcomma.input", "trailingcomma.golden", idempotent},
 }
 
 func TestFiles(t *testing.T) {
