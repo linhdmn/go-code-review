@@ -142,7 +142,9 @@ func (p *printer) exprList(prev0 token.Pos, list []ast.Expr, depth int, mode exp
 	line := p.lineFor(list[0].Pos())
 	endLine := p.lineFor(list[len(list)-1].End())
 
-	if prev.IsValid() && prev.Line == line && line == endLine {
+	// a comment on a later line before the closing token needs the trailing comma
+	commentOnLaterLine := mode&commaTerm != 0 && p.commentBefore(next) && p.lineFor(p.comment.List[len(p.comment.List)-1].Pos()) > endLine
+	if prev.IsValid() && prev.Line == line && line == endLine && !commentOnLaterLine {
 		// all list entries on a single line
 		for i, x := range list {
 			if i > 0 {
